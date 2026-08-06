@@ -1,0 +1,24 @@
+{
+  "name": "windows-mode-manager",
+  "version": "1.0.0",
+  "description": "A manager that automatically sets up your windows, applications, and workspace for predefined modes like work, gaming, and programming.",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mason-auck/Windows-Mode-Manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mason-auck/Windows-Mode-Manager/issues"
+  },
+  "homepage": "https://github.com/mason-auck/Windows-Mode-Manager#readme",
+  "devDependencies": {
+    "electron": "^43.3.0"
+  }
+}
