@@ -7,9 +7,16 @@ const data = JSON.parse(
 
 const list = document.getElementById("app-list");
 
-// loop through the apps
-for (const app of data.modes.programming.apps) {
+// loop through the modes
+for (const mode of Object.values(data.modes)) {
   const li = document.createElement("li");
-  li.textContent = app.name;
+  li.textContent = mode.name;
   list.appendChild(li);
+
+  // loop through each mode's apps
+  for (const app of mode.apps) {
+    const appLi = document.createElement("li");
+    appLi.textContent = `- ${app.name}`;
+    list.appendChild(appLi);
+  }
 }
