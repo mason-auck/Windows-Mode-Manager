@@ -20,5 +20,8 @@
   "homepage": "https://github.com/mason-auck/Windows-Mode-Manager#readme",
   "devDependencies": {
     "electron": "^43.3.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
   }
 }

@@ -28,3 +28,6 @@ coverage/
 
 # One-off cleanup script (do not push)
 purge-env-from-github.ps1
+
+# My modes/file-paths
+modes.json
