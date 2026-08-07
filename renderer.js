@@ -19,12 +19,37 @@ function render() {
 
   // loop through the modes
   for (const mode of Object.values(data.modes)) {
+    // create a details element for each mode
     const details = document.createElement("details");
     details.className = "mode-block";
 
     const summary = document.createElement("summary");
     summary.className = "mode-toggle";
     summary.textContent = mode.name;
+
+    const title = document.createElement("span");
+    title.textContent = mode.name;
+
+    // create a start and stop button for each mode
+    const startBtn = document.createElement("button");
+    startBtn.className = "start-btn";
+    startBtn.textContent = "Start";
+
+    // stop button for each mode
+    const stopBtn = document.createElement("button");
+    stopBtn.className = "stop-btn";
+    stopBtn.textContent = "Stop";
+
+    // add event listeners for start and stop buttons
+    startBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+
+    stopBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    });
 
     const appsUl = document.createElement("ul");
     appsUl.className = "mode-apps";
@@ -54,6 +79,11 @@ function render() {
       li.appendChild(btn);
       appsUl.appendChild(li);
     }
+
+    summary.appendChild(title);
+    summary.appendChild(startBtn);
+    summary.appendChild(stopBtn);
+
     details.appendChild(summary);
     details.appendChild(appsUl);
     list.appendChild(details);
