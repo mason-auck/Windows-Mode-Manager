@@ -15,9 +15,20 @@ function save() {
 
 function render() {
   list.innerHTML = ""; // clear the list before rendering
+  list.className = "app-list";
 
   // loop through the modes
   for (const mode of Object.values(data.modes)) {
+    const details = document.createElement("details");
+    details.className = "mode-block";
+
+    const summary = document.createElement("summary");
+    summary.className = "mode-toggle";
+    summary.textContent = mode.name;
+
+    const appsUl = document.createElement("ul");
+    appsUl.className = "mode-apps";
+
     // loop through the apps in each mode
     for (const app of mode.apps) {
       const li = document.createElement("li");
@@ -41,8 +52,11 @@ function render() {
 
       li.appendChild(label);
       li.appendChild(btn);
-      list.appendChild(li);
+      appsUl.appendChild(li);
     }
+    details.appendChild(summary);
+    details.appendChild(appsUl);
+    list.appendChild(details);
   }
 }
 
