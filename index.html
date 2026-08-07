@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="style.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Windows Mode Manager</title>
@@ -11,6 +12,12 @@
     <hr />
 
     <ul id="app-list"></ul>
+    <input
+      type="file"
+      id="file-picker"
+      accept=".exe,.lnk"
+      style="display: none"
+    />
     <script src="renderer.js"></script>
   </body>
 </html>
