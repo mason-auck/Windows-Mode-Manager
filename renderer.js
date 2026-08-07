@@ -23,9 +23,14 @@ function render() {
       const li = document.createElement("li");
       const label = document.createElement("span");
 
+      li.className = "app-item";
+      label.className = "app-label";
+
       label.textContent = `${mode.name}: ${app.name} - ${app.path || "(No path)"}`;
 
       const btn = document.createElement("button");
+
+      btn.className = "path-btn";
 
       btn.textContent = "Set Path";
       btn.addEventListener("click", () => {
