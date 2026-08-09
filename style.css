@@ -95,6 +95,21 @@ body {
   cursor: pointer;
 }
 
+.add-app-btn {
+  padding: 8px 14px;
+  margin-left: 12px 8px;
+  margin-right: 12px 8px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.add-app-btn:hover {
+  background: #1d4ed8;
+}
+
 .stop-btn:hover {
   background: #b91c1c;
 }
