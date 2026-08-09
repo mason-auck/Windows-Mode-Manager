@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const { runMode } = require("./modes/apps");
+const { runMode, addNewApp } = require("./modes/apps");
 
 const configPath = path.join(__dirname, "config", "modes.json");
 const data = JSON.parse(fs.readFileSync(configPath, "utf-8"));
@@ -13,6 +13,29 @@ let pending = null;
 
 function save() {
   fs.writeFileSync(configPath, JSON.stringify(data, null, 2), "utf-8");
+}
+
+function createAppRow(mode, app) {
+  const li = document.createElement("li");
+  const label = document.createElement("span");
+  li.className = "app-item";
+  label.className = "app-label";
+  label.textContent = `${mode.name}: ${app.name || "(New app)"} - ${
+    app.path || "(No path)"
+  }`;
+
+  const btn = document.createElement("button");
+  btn.className = "path-btn";
+  btn.textContent = "Set Path";
+  btn.addEventListener("click", () => {
+    pending = { modeId: mode.id, appId: app.id };
+    picker.value = "";
+    picker.click();
+  });
+
+  li.appendChild(label);
+  li.appendChild(btn);
+  return li;
 }
 
 function render() {
@@ -42,6 +65,22 @@ function render() {
     addAppBtn.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
+
+      addNewApp(mode.id);
+
+      const fresh = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+      data.modes = fresh.modes;
+
+      const updatedMode = data.modes[mode.id];
+      const newApp = updatedMode.apps[updatedMode.apps.length - 1];
+
+      const appsUl = document.querySelector(
+        `.mode-apps[data-mode-id="${mode.id}"]`,
+      );
+
+      if (appsUl && newApp) {
+        appsUl.appendChild(createAppRow(updatedMode, newApp));
+      }
     });
 
     // create a start and stop button for each mode
@@ -68,6 +107,7 @@ function render() {
 
     const appsUl = document.createElement("ul");
     appsUl.className = "mode-apps";
+    appsUl.dataset.modeId = mode.id;
 
     // loop through the apps in each mode
     for (const app of mode.apps) {

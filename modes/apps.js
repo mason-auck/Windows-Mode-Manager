@@ -1,4 +1,6 @@
 const { spawn } = require("child_process");
+const { error } = require("console");
+const { config } = require("dotenv");
 const fs = require("fs");
 const path = require("path");
 
@@ -37,4 +39,23 @@ function stopMode(modeId) {
   // placeholder
 }
 
-module.exports = { loadModes, runMode, getModeApps };
+// function to add new app to existing mode
+function addNewApp(modeId) {
+  const data = loadModes();
+
+  if (!data.modes[modeId]) {
+    throw new Error(`Mode with ID ${modelId} not found.`);
+  }
+
+  data.modes[modeId].apps.push({
+    id: "app-" + Date.now(),
+    name: "",
+    path: "",
+    args: [],
+    stopImage: "",
+  });
+
+  fs.writeFileSync(configPath, JSON.stringify(data, null, 2), "utf-8");
+}
+
+module.exports = { loadModes, runMode, getModeApps, addNewApp };
