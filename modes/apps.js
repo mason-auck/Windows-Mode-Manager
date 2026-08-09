@@ -32,4 +32,9 @@ function getModeApps(modeId) {
   return mode.apps;
 }
 
+// stop the mode
+function stopMode(modeId) {
+  // placeholder
+}
+
 module.exports = { loadModes, runMode, getModeApps };

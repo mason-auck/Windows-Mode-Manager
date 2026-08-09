@@ -1,6 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 
+const { runMode } = require("./modes/apps");
+
 const configPath = path.join(__dirname, "config", "modes.json");
 const data = JSON.parse(fs.readFileSync(configPath, "utf-8"));
 
@@ -27,8 +29,9 @@ function render() {
     summary.className = "mode-toggle";
     summary.textContent = mode.name;
 
-    const title = document.createElement("span");
-    title.textContent = mode.name;
+    // container for buttons
+    const buttonContainer = document.createElement("div");
+    buttonContainer.className = "button-container";
 
     // create a start and stop button for each mode
     const startBtn = document.createElement("button");
@@ -44,6 +47,7 @@ function render() {
     startBtn.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
+      runMode(mode.id);
     });
 
     stopBtn.addEventListener("click", (e) => {
@@ -75,14 +79,15 @@ function render() {
         picker.click();
       });
 
+      buttonContainer.appendChild(startBtn);
+      buttonContainer.appendChild(stopBtn);
+
       li.appendChild(label);
       li.appendChild(btn);
       appsUl.appendChild(li);
     }
 
-    summary.appendChild(title);
-    summary.appendChild(startBtn);
-    summary.appendChild(stopBtn);
+    summary.appendChild(buttonContainer);
 
     details.appendChild(summary);
     details.appendChild(appsUl);
@@ -90,6 +95,7 @@ function render() {
   }
 }
 
+// handle file picker change
 picker.addEventListener("change", (event) => {
   if (!pending || !picker.files.length) return;
 
