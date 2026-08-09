@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { dialog } = require("electron");
 
 const { runMode, addNewApp } = require("./modes/apps");
 const { webUtils } = require("electron");
