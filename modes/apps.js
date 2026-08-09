@@ -15,10 +15,22 @@ function loadModes() {
 // run the mode
 function runMode(modeId) {
   for (const app of getModeApps(modeId)) {
-    spawn(app.path, app.args || [], {
-      detached: true,
-      stdio: "ignore",
-    }).unref();
+    if (!app.path) continue;
+
+    const isLnk = app.path.toLowerCase().endsWith(".lnk");
+
+    if (isLnk) {
+      spawn("cmd", ["/c", "start", '""', app.path], {
+        detached: true,
+        stdio: "ignore",
+        windowsHide: true,
+      }).unref();
+    } else {
+      spawn(app.path, app.args || [], {
+        detached: true,
+        stdio: "ignore",
+      }).unref();
+    }
   }
 }
 

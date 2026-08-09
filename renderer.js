@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const { runMode, addNewApp } = require("./modes/apps");
+const { webUtils } = require("electron");
 
 const configPath = path.join(__dirname, "config", "modes.json");
 const data = JSON.parse(fs.readFileSync(configPath, "utf-8"));
@@ -151,9 +152,14 @@ function render() {
 picker.addEventListener("change", (event) => {
   if (!pending || !picker.files.length) return;
 
-  const filePath = picker.files[0].path;
+  const filePath = webUtils.getPathForFile(picker.files[0]);
   const mode = data.modes[pending.modeId];
   const app = mode.apps.find((a) => a.id === pending.appId);
+
+  if (!app) {
+    console.error("No app for", pending);
+    return;
+  }
 
   app.path = filePath;
   save();
