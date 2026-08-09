@@ -26,6 +26,18 @@ function createAppRow(mode, app) {
     app.path || "(No path)"
   }`;
 
+  // container for buttons
+  const innerBtnContainer = document.createElement("div");
+  innerBtnContainer.className = "inner-container";
+
+  // button to remove a path
+  const removeBtn = document.createElement("button");
+  removeBtn.className = "remove-btn";
+  removeBtn.textContent = "Remove";
+  removeBtn.addEventListener("click", (e) => {
+    // placeholder
+  });
+
   const btn = document.createElement("button");
   btn.className = "path-btn";
   btn.textContent = "Set Path";
@@ -35,8 +47,11 @@ function createAppRow(mode, app) {
     picker.click();
   });
 
+  innerBtnContainer.appendChild(btn);
+  innerBtnContainer.appendChild(removeBtn);
+
   li.appendChild(label);
-  li.appendChild(btn);
+  li.appendChild(innerBtnContainer);
   return li;
 }
 
@@ -112,34 +127,14 @@ function render() {
     appsUl.dataset.modeId = mode.id;
 
     // loop through the apps in each mode
+    // loop through the apps in each mode
     for (const app of mode.apps) {
-      const li = document.createElement("li");
-      const label = document.createElement("span");
-
-      li.className = "app-item";
-      label.className = "app-label";
-
-      label.textContent = `${mode.name}: ${app.name} - ${app.path || "(No path)"}`;
-
-      const btn = document.createElement("button");
-
-      btn.className = "path-btn";
-
-      btn.textContent = "Set Path";
-      btn.addEventListener("click", () => {
-        pending = { modeId: mode.id, appId: app.id };
-        picker.value = "";
-        picker.click();
-      });
-
-      buttonContainer.appendChild(startBtn);
-      buttonContainer.appendChild(stopBtn);
-      buttonContainer.appendChild(addAppBtn);
-
-      li.appendChild(label);
-      li.appendChild(btn);
-      appsUl.appendChild(li);
+      appsUl.appendChild(createAppRow(mode, app));
     }
+
+    buttonContainer.appendChild(startBtn);
+    buttonContainer.appendChild(stopBtn);
+    buttonContainer.appendChild(addAppBtn);
 
     summary.appendChild(buttonContainer);
 

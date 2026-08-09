@@ -131,3 +131,18 @@ body {
   align-items: center;
   gap: 8px;
 }
+
+.remove-btn {
+  padding: 8px 14px;
+  margin-left: 12px 8px;
+  margin-right: 12px 8px;
+  border: none;
+  border-radius: 6px;
+  background: #dc2626;
+  color: white;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background: #b91c1c;
+}
